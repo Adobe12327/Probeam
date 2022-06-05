@@ -82,7 +82,7 @@ class CopyNodeModifier(bpy.types.Operator):
                         modi.value_vector.y = mod.value_vector.y
                         modi.value_vector.z = mod.value_vector.z
                         modi.modifier_index = modifier_index
-                self.report({'INFO'}, f"{len(nodee.modifier)} modifiers have copied to {len(nodee)-1} nodes")
+                self.report({'INFO'}, f"{len(nodee.modifier)} modifiers have copied to {len(nodes)-1} nodes")
         
         return {"FINISHED"}
 
