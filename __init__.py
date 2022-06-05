@@ -14,7 +14,7 @@ bl_info = {
     "name": "Probeam | the jbeam blender addon",
     "author": "Adobe#7248",
     "description": "Probeam is an jbeam blender addon",
-    "blender": (2, 93, 0),
+    "blender": (3, 0, 0),
     "version": (1, 0, 0),
     "location": "",
     "warning": "",
