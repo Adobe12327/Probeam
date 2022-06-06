@@ -492,6 +492,7 @@ def read_jbeam(filepath):
     content = content.replace(']"', '],"')
     content = content.replace("true", "True")
     content = content.replace("false", "False")
+    content = content.replace("\t", "    ")
     content = yaml.load(content)
     objs = []
     for k in content:
