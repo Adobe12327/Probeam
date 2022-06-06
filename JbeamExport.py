@@ -147,9 +147,15 @@ def export_jbeam(filepath):
                 if str(i) in mods:
                     for mm in mods[str(i)]:
                         f.write('\t\t{"'+mm[0]+'":'+str(mm[1])+'},\n')
-                for n in node_table[str(i)]:
-                    coord = bpy.context.active_object.data.vertices[FindNodeIndexById(n)].co
-                    f.write(f'\t\t["{n}",{round(coord.x,2)},{round(coord.y,2)},{round(coord.z,2)}],\n')
+                if not '-1' in node_table:
+                    for n in node_table[str(i)]:
+                        coord = bpy.context.active_object.data.vertices[FindNodeIndexById(n)].co
+                        f.write(f'\t\t["{n}",{round(coord.x,2)},{round(coord.y,2)},{round(coord.z,2)}],\n')
+                else:
+                    for n in jbeam.nodes:
+                        coord = bpy.context.active_object.data.vertices[FindNodeIndexById(n.id)].co
+                        f.write(f'\t\t["{n.id}",{round(coord.x,2)},{round(coord.y,2)},{round(coord.z,2)}],\n')
+
             f.write('\t\t{"group":""},\n')
             f.write('\t],\n')
 
@@ -201,8 +207,12 @@ def export_jbeam(filepath):
                 if str(i) in mods:
                     for mm in mods[str(i)]:
                         f.write('\t\t{"'+mm[0]+'":'+str(mm[1])+'},\n')
-                for n in node_table[str(i)]:
-                    f.write(f'\t\t["{n[0]}","{n[1]}"],\n')
+                if not '-1' in node_table:
+                    for n in node_table[str(i)]:
+                        f.write(f'\t\t["{n[0]}","{n[1]}"],\n')
+                else:
+                    for n in jbeam.beams:
+                        f.write(f'\t\t["{n.id1}","{n.id2}"],\n')
                 
             f.write('\t],\n')
 
@@ -254,8 +264,12 @@ def export_jbeam(filepath):
                 if str(i) in mods:
                     for mm in mods[str(i)]:
                         f.write('\t\t{"'+mm[0]+'":'+str(mm[1])+'},\n')
-                for n in node_table[str(i)]:
-                    f.write(f'\t\t["{n[0]}","{n[1]}","{n[2]}"],\n')
+                if not '-1' in node_table:
+                    for n in node_table[str(i)]:
+                        f.write(f'\t\t["{n[0]}","{n[1]}","{n[2]}"],\n')
+                else:
+                    for n in jbeam.triangles:
+                        f.write(f'\t\t["{n.id1}","{n.id2}","{n.id3}"],\n')
                 
             f.write('\t],\n')
 
