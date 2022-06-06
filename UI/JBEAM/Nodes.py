@@ -61,6 +61,14 @@ class NODES_OT_actions(bpy.types.Operator):
                 current_jbeam.nodes_index -= 1
 
             elif self.action == 'REMOVE':
+                for i, beam in enumerate(current_jbeam.beams):
+                    if beam.id1 == item.id or beam.id2 == item.id:
+                        current_jbeam.beams_index -= 1
+                        current_jbeam.beams.remove(i)
+                for i, triangle in enumerate(current_jbeam.triangles):
+                    if triangle.id1 == item.id or triangle.id2 == item.id or triangle.id3 == item.id:
+                        current_jbeam.triangles_index -= 1
+                        current_jbeam.triangles.remove(i)
                 mode = bpy.context.object.mode
                 bpy.ops.object.mode_set(mode='EDIT')
                 bpy.ops.mesh.select_all(action='DESELECT')
