@@ -80,6 +80,7 @@ class NODES_OT_actions(bpy.types.Operator):
                 bpy.ops.object.mode_set(mode = 'OBJECT')
                 bpy.context.active_object.data.vertices[idx].select = True 
                 bpy.ops.object.mode_set(mode = 'EDIT')
+                bpy.context.scene.jbeam.node_id = item.id
 
                 bpy.context.scene.jbeam.modifier_type = ""
                 bpy.context.scene.jbeam.modifier_value_int = 0
@@ -89,6 +90,23 @@ class NODES_OT_actions(bpy.types.Operator):
                 bpy.context.scene.jbeam.modifier_value_vector.x = 0
                 bpy.context.scene.jbeam.modifier_value_vector.x = 0
                 bpy.context.scene.jbeam.modifier_value_vector.x = 0
+
+            elif self.action == 'EDIT':
+                tochange = bpy.context.scene.jbeam.node_id
+                for beam in current_jbeam.beams:
+                    if beam.id1 == item.id:
+                        beam.id1 = tochange
+                    elif beam.id2 == item.id:
+                        beam.id2 = tochange
+                for triangle in current_jbeam.triangles:
+                    if triangle.id1 == item.id:
+                        triangle.id1 = tochange
+                    elif triangle.id2 == item.id:
+                        triangle.id2 = tochange
+                    elif triangle.id3 == item.id:
+                        triangle.id3 = tochange
+                item.id = bpy.context.scene.jbeam.node_id
+
         return {"FINISHED"}
 
 class NODEMODIFIER_UL_items(bpy.types.UIList):
@@ -239,8 +257,9 @@ class PANEL_PT_JBeamNodesPanel(bpy.types.Panel):
             column.operator("nodes.list_action", icon='TRIA_UP', text="").action = 'UP'
             column.operator("nodes.list_action", icon='TRIA_DOWN', text="").action = 'DOWN'
             column = self.layout.column_flow().column()
-            node = bpy.context.active_object.data.jbeam.nodes[bpy.context.active_object.data.jbeam.nodes_index]
-            column.prop(node, "id")
+            column.prop(bpy.context.scene.jbeam, "node_id")
+            row = self.layout.row()
+            row.operator("nodes.list_action", icon='MODIFIER', text="Edit").action = 'EDIT'
 
 class  PANEL_PT_JBeamNodesModifierPanel(bpy.types.Panel):
     bl_label = "Modifier"
