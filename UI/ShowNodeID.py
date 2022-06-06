@@ -79,8 +79,6 @@ def draw_callback_px(self, context):
 
     me = context.active_object.data
 
-    me.update()
-
     for v in me.vertices:
         try:
             draw_index(1.0, 1.0, 1.0, me.jbeam.nodes[v.index].id, v.co.to_4d())
