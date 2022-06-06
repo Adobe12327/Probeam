@@ -85,6 +85,7 @@ class PROPERTIES_PG_jbeam_object(bpy.types.PropertyGroup):
     authors: bpy.props.StringProperty(name="Authors",description="",default="")
     value: bpy.props.IntProperty(name="Value",description="", min=0)
     slot_type: bpy.props.StringProperty(name="Slot Type",description="",default="main")
+    node_id : bpy.props.StringProperty(name="ID")
     export_information : bpy.props.BoolProperty(default=True)
     export_information_value : bpy.props.BoolProperty(default=True)
     export_slots : bpy.props.BoolProperty(default=True)
